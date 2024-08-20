@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const passport = require('passport')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+
 const c_beranda = require('./controller/c_beranda')
 const c_auth = require('./controller/c_auth')
 const c_feed = require('./controller/c_feed')
