@@ -12,10 +12,14 @@ let cari_username = function(username) {
 
 module.exports = {
     form_login: function(req,res) {
-        let dataView = {
-            message: req.query.msg
+        if (req.session.user) {
+            res.redirect('/feed')
+        } else {
+            let dataView = {
+                message: req.query.msg
+            }
+            res.render('auth/form-login', dataView)
         }
-        res.render('auth/form-login', dataView)
     },
 
     proses_login: async function(req,res) {
@@ -39,5 +43,13 @@ module.exports = {
             let message = 'Tidak ada di database!!'
             res.redirect(`/login?msg=${message}`)
         }
-    }
+    },
+    cek_login: function(req,res,next) {
+        if (req.session.user) {
+            next()
+        } else {
+            let message = 'Sesi Anda habis, silakan login ulang'
+            res.redirect(`login?msg=${message}`)
+        }
+    },
 }
