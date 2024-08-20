@@ -26,6 +26,10 @@ module.exports = {
         if (user.length>0) {
             let passwordCocok = bcrypt.compareSync(password, user[0].password)
             if (passwordCocok) {
+                //Set data session user yang login
+                req.session.user = user
+
+                //Arahkan ke halaman feed
                 res.redirect('/feed')
             } else {
                 let message = 'Password salah, coba ingat-ingat'
