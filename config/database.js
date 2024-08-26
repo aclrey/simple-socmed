@@ -3,7 +3,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'jfd_belajar_database'
+    database: 'jfd_belajar_database',
 })
 db.connect()
 
