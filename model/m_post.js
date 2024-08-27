@@ -1,19 +1,32 @@
-const mysql = require('mysql2')
-const eksekusi = require('../config/database').eksekusi
-const moment = require('moment')
+const mysql     = require('mysql2')
+const eksekusi  = require('../config/database').eksekusi
+const moment    = require('moment')
 moment.locale('id')
 
-module.exports = {
-    update: function (req) {
+module.exports =
+{
+
+    insert: function(req, file1_name, file2_name, file3_name) {
         let data = {
-            caption: req.body.form_caption,
-            file1: req.files.form_media1.name,
-            file2: req.files.form_media2.name,
-            file2: req.files.form_media2.name,
-            created_at: moment().format("YYYY-MM-DD HH:mm:ss")
+            caption     : req.body.form_caption,
+            file1       : (file1_name) ? file1_name : null,
+            file2       : (file2_name) ? file2_name : null,
+            file3       : (file3_name) ? file3_name : null,
+            created_at  : moment().format("YYYY-MM-DD HH:mm:ss"),
+            created_by  : req.session.user[0].id,
         }
         
-        return eksekusi(mysql.format(`INSERT INTO post SET ?`,
-            [data]))
+        return eksekusi( mysql.format(
+            `INSERT INTO post SET ?`,
+            [data]
+        ))
+    },
+
+    get_all: function() {
+        
+        return eksekusi( mysql.format(
+            `SELECT * FROM post
+            ORDER BY id DESC`,
+        ))
     },
 }
