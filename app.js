@@ -47,6 +47,7 @@ app.get('/profil/edit-foto', cek_login, c_profil.form_edit_foto)
 app.post('/profil/proses-update-foto', cek_login, c_profil.proses_update_foto)
 app.get('/posting', cek_login, c_posting.index)
 app.post('/posting/tambah', cek_login, c_posting.proses_insert)
+app.get('/profil/user/:username', cek_login, c_profil.profil_userlain)
 
 app.listen(port, () => {
     console.log(`Aplikasi sudah siap, buka http://localhost:${port}`)

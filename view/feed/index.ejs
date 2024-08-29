@@ -1,9 +1,19 @@
 <%- include('../template/head-start') %>
 <%- include('../template/menu-atas') %>
+<style>
+    .ava-icon {
+        width: 28px; height:28px; object-fit: cover; margin-right:10px; border-radius: 100%;
+    }
+    a:hover {
+        color: darkblue;
+    }
+</style>
 
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-        <div class="row d-flex justify-content-center">
+        <div class="col d-flex justify-content-evenly">
+
+            <!-- Message & Feeds -->
             <div class="col-lg-7">
                 <% if (message) { %>
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -37,7 +47,15 @@
 
                     <div class="card shadow-sm mb-5">
 
-                        <div id="carouselExample<%= postingan[i].id %>" class="carousel slide">
+                        <div>
+                            <img src="/upload/<%= postingan[i].foto %>" class="rounded-circle p-2" height="50" style="object-fit: cover;" alt="...">
+                            <b><%= postingan[i].username %></b>
+                            <span class="float-end p-3">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </span>
+                        </div>
+
+                        <div id="carouselExample<%= postingan[i].id %>" class="carousel slide bg-dark">
                             <div class="carousel-inner">
                                 <% if (postingan[i].file1) { %>
                                     <div class="carousel-item <%= carousel_active1 %>">
@@ -66,7 +84,7 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="card-text"><%= postingan[i].caption %></p>
+                            <p class="card-text"><b><%= postingan[i].username %></b> <%= postingan[i].caption %></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -83,8 +101,52 @@
 
                 <% } %>
             </div>
+
+            <!-- User List -->
+            <div>
+                <h3 class="mb-3">Pengguna Lainnya</h3>
+                <div class="card" style="width: 18rem;">
+                    <div class="list-group list-group-flush">
+                        <a href="/profil" style="text-decoration: none; color:black;">
+                            <div class="card-header px-3 py-3 d-flex flex-row justify-content-start">
+                                <% if ( ! req.session.user[0].foto ) { %>
+                                    <img src="/gambar/Profile.png" class="ava-icon">
+                                <% } else { %>
+                                    <img src="/upload/<%=req.session.user[0].foto%>" class="ava-icon">
+                                <% } %>
+                                <div class="d-flex flex-column">
+                                    <p1 style="font-weight: bold; margin-bottom: 2px; color: blue">You (<%=req.session.user[0].username%>)</p1>
+                                    <p1 style=""><%=req.session.user[0].bio%></p1>
+                                </div>
+                            </div>
+                        </a>
+                        <% for( let i = 0; i < users.length; i++ ) { %>
+                            <% if (users[i].id == req.session.user[0].id) { %>
+                                <null/>
+                                <% } else { %>
+                                    <a href="/profil/user/<%= users[i].username %>" style="text-decoration: none; color: black">
+                                        <div class="px-3 py-3 d-flex flex-row justify-content-start">
+                                    
+                                            <% if ( ! users[i].foto ) { %>
+                                                <img src="/gambar/Profile.png" class="ava-icon" alt="...">
+                                            <% } else { %>
+                                                <img src="/upload/<%= users[i].foto %>" class="ava-icon">
+                                            <% } %>
+                                            <div class="d-flex flex-column">
+                                                <p1 style="font-weight: bold; margin-bottom: 2px;"><%=users[i].nama_lengkap%></p1>
+                                                <p1 style=""><%=users[i].bio%></p1>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                  </div>
+                
+            </div>
         </div>
     </div>
 </div>
+
 
 <%- include('../template/head-end') %>

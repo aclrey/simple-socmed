@@ -11,6 +11,7 @@ module.exports =
             message: req.query.msg,
             moment: moment,
             postingan: await m_post.get_all(),
+            users: await m_post.get_all_users(),
         }
         res.render('feed/index', dataview)
     }

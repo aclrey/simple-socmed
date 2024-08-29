@@ -1,6 +1,10 @@
 html,
 body {
-  height: auto;
+  height: 100vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .form-signin {
   max-width: 330px;

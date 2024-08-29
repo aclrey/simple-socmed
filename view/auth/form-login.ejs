@@ -14,23 +14,26 @@
 </head>
 
 <body>
-  <% if (message) { %>
-    <% if (message=="Password salah, coba ingat-ingat" ) { %>
-      <div class="alert alert-danger alert-dismissible" role="alert">
-        <%= message %>
-      </div>
-      <% } else { %>
-        <div class="alert alert-warning alert-dismissible" role="alert">
-          <%= message %>
-        </div>
-        <% } %>
-          <% } %>
-            <main class="form-signin w-100 m-auto">
+
+            <main class="form-signin m-auto w-50">
+
+              <% if (message) { %>
+                <% if (message=="Password salah, coba ingat-ingat" ) { %>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= message %>
+                  </div>
+                  <% } else { %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <%= message %>
+                    </div>
+                    <% } %>
+                      <% } %>
+                      
               <form method="post" action="/proses-login">
-                <img class="mb-4" src="/gambar/BaileyHead.png" alt="" width="72" height="auto">
+                <img class="mb-4" src="/gambar/QPSosmedLogo.png" alt="" width="72" height="auto">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input type="text" name="form_username" class="form-control" id="floatingInput"
                     placeholder="name@example.com">
                   <label for="floatingInput">Username</label>
@@ -45,5 +48,7 @@
                 <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
               </form>
             </main>
+
+          </div>
 
 </body>
