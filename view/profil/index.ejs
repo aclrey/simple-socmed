@@ -1,8 +1,17 @@
 <%- include('../template/head-start') %>
 <%- include('../template/menu-atas') %>
 
-<div class="container pt-3">
-    <div class="row d-flex justify-content-center">
+<style>
+    .ava-icon {
+        width: 28px; height:28px; object-fit: cover; margin-right:10px; border-radius: 100%;
+    }
+    a:hover {
+        color: darkblue;
+    }
+</style>
+
+<div class="container pt-3 pb-5 d-flex flex-column align-items-center">
+    <div class="d-flex flex-column col-lg-7 justify-content-center">
         <% if (message) { %>
             <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <i class="fa-solid fa-info-circle me-2"></i><%= message %>
@@ -10,20 +19,20 @@
             </div>
         <% } %>
         <br>
-        <h1>Halaman Profil</h1>
-        <div class="card mt-3 mb-3">
-            <div class="row g-4">
-                <div class="col-md-2 mb-4">
-                    <a href="/profil/edit-foto" class="btn btn-sm btn-primary float-end mt-3">
-                        <i class="fa-solid fa-edit"></i>
-                    </a>
-                    <% if ( ! req.session.user[0].foto ) { %>
-                        <img src="/gambar/Profile.png" width="220px" class="img-fluid rounded-start" alt="...">
-                    <% } else { %>
-                        <img src="/upload/<%= req.session.user[0].foto %>" width="220px" class="img-fluid rounded-start" alt="...">
-                    <% } %>
+        <h1>Profil</h1>
+        <div class="card py-4 px-4 mt-3">
+            <div class="d-flex flex-row">
+                <div width="220px" class="me-3 position-relative">
+                        <a href="/profil/edit-foto" class="btn btn-sm btn-primary position-absolute top-0 end-0">
+                            <i class="fa-solid fa-edit"></i>
+                        </a>
+                        <% if ( ! req.session.user[0].foto ) { %>
+                            <img src="/gambar/Profile.png" width="220px" height="220px" class="img-fluid rounded" alt="...">
+                        <% } else { %>
+                            <img src="/upload/<%= req.session.user[0].foto %>" width="220px" height="220px" class="img-fluid rounded" style="object-fit: cover;" alt="...">
+                        <% } %>
                 </div>
-                <div class="col-md-8">
+                <div class="w-100">
                     <div class="card-body">
                         <a href="/profil/edit" class="btn btn-sm btn-primary float-end">
                             <i class="fa-solid fa-edit"></i>

@@ -61,7 +61,7 @@ module.exports =
     },
 
     get_userpost: function (usernamek) {
-
+        
         return eksekusi(mysql.format(
             `SELECT
             p.*,
@@ -73,5 +73,6 @@ module.exports =
             [usernamek]
         ))
     },
+    
     
 }

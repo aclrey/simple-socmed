@@ -15,8 +15,6 @@ module.exports =
         res.render('posting/index', dataview)
     },
 
-
-
     proses_insert: async function(req,res) {
         let caption = req.body.form_caption
         let media1  = ''
@@ -96,7 +94,7 @@ module.exports =
                 // proses insert ke database
                 let insert = await m_post.insert(req, file1_name, file2_name, file3_name)
                 if (insert.affectedRows > 0) {
-                    return res.redirect(`/feed?msg=Posting berhasil dikirim${pesan_upload}`)
+                    return res.redirect(`/feed?msg=Postingan berhasil dikirim${pesan_upload}`)
                 }
             } catch (error) {
                 // menangkap error dari proses try (insert ke db)

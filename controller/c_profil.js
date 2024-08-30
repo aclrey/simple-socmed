@@ -34,7 +34,6 @@ module.exports =
         res.render('profil/form-edit', dataview)
     },
 
-
     proses_update: async function (req, res) {
         try {
             let update = await m_user.update(req)

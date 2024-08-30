@@ -1,0 +1,145 @@
+<%- include('../template/head-start') %>
+<%- include('../template/menu-atas') %>
+<style>
+    .ava-icon {
+        width: 28px; height:28px; object-fit: cover; margin-right:10px; border-radius: 100%;
+    }
+    a:hover {
+        color: darkblue;
+    }
+</style>
+
+<div class="album py-5 w-100 bg-body-tertiary">
+    <div class="container">
+        <div class="col d-flex justify-content-evenly w-100">
+
+                <% for( let i=0; i < postingan.length; i++ ) { %>
+                    <%
+                        let carousel_active1 = ''
+                        let carousel_active2 = ''
+                        let carousel_active3 = ''
+
+                        if (postingan[i].file1) {
+                            carousel_active1 = 'active'
+                            carousel_active2 = ''
+                            carousel_active3 = ''
+                        }
+                        else if (postingan[i].file2) {
+                            carousel_active1 = ''
+                            carousel_active2 = 'active'
+                            carousel_active3 = ''
+                        }
+                        else if (postingan[i].file3) {
+                            carousel_active1 = ''
+                            carousel_active2 = ''
+                            carousel_active3 = 'active'
+                        }
+                    %>
+                    <div class="d-flex flex-row justify-content-evenly w-100">
+
+                        <!-- Post Content -->
+                        <div class="card shadow-sm mb-5 w-50">
+    
+                            <div>
+                                <img src="/upload/<%= postingan[i].foto %>" class="rounded-circle p-2" height="50" style="object-fit: cover;" alt="...">
+                                <b><%= postingan[i].username %></b>
+                                <span class="float-end p-3">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </span>
+                            </div>
+    
+                            <div id="carouselExample<%= postingan[i].id %>" class="carousel slide bg-dark">
+                                <div class="carousel-inner">
+                                    <% if (postingan[i].file1) { %>
+                                        <div class="carousel-item <%= carousel_active1 %>">
+                                            <img src="/feed/<%= postingan[i].file1 %>" class="d-block w-100" height="350" style="object-fit: contain;" alt="...">
+                                        </div>
+                                    <% } %>
+                                    <% if (postingan[i].file2) { %>
+                                        <div class="carousel-item <%= carousel_active2 %>">
+                                            <img src="/feed/<%= postingan[i].file2 %>" class="d-block w-100" height="350" style="object-fit: contain;" alt="...">
+                                        </div>
+                                    <% } %>
+                                    <% if (postingan[i].file3) { %>
+                                        <div class="carousel-item <%= carousel_active3 %>">
+                                            <img src="/feed/<%= postingan[i].file3 %>" class="d-block w-100" height="350" style="object-fit: contain;" alt="...">
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample<%= postingan[i].id %>" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample<%= postingan[i].id %>" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+    
+                            <div class="card-body">
+                                <p class="card-text"><b><%= postingan[i].username %></b> <%= postingan[i].caption %></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa-regular fa-thumbs-up"></i>
+                                        </button>
+                                    </div>
+                                    <small class="text-body-secondary"><%= moment(postingan[i].created_at).startOf('minute').fromNow() %></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post Comments -->
+                        <div>
+                            <h3 class="mb-3">Komentar pada Postingan</h3>
+                            <div class="card w-100">
+                                <div class="list-group list-group-flush">
+                                        <div class="card-header px-3 py-3 d-flex flex-row justify-content-start w-100">
+                                            
+                                            <!-- Comment Form -->
+                                            <form action="/feed/post/<%= req.params.id_post %>" method="post" class="w-100">
+                                                <div class="row">
+                                                    <div class="col-lg-7 mb-3 w-100">
+                                                        <label class="form-label">Beri komentarmu</label>
+                                                        <textarea name="form_komen" class="form-control w-100"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-row justify-content-end">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="fa-solid fa-paper-plane me-1"></i> Kirim
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    <% for( let i = 0; i < komentar.length; i++ ) { %>
+
+                                                <a href="/profil/user/<%= komentar[i].username %>" style="text-decoration: none; color: black">
+                                                    <div class="px-3 py-3 d-flex flex-row justify-content-start">
+                                                
+                                                        <% if ( ! komentar[i].foto ) { %>
+                                                            <img src="/gambar/Profile.png" class="ava-icon" alt="...">
+                                                        <% } else { %>
+                                                            <img src="/upload/<%= komentar[i].foto %>" class="ava-icon">
+                                                        <% } %>
+                                                        <div class="d-flex flex-column">
+                                                            <p1 style="font-weight: bold; margin-bottom: 2px;"><%=komentar[i].username%></p1>
+                                                            <p1 style=""><%=komentar[i].komen%></p1>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                            <% } %>
+                                    </div>
+                              </div>
+                        </div>
+
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../template/head-end') %>

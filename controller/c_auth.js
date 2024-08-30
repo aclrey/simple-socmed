@@ -36,11 +36,11 @@ module.exports = {
                 //Arahkan ke halaman feed
                 res.redirect('/feed')
             } else {
-                let message = 'Password salah, coba ingat-ingat'
+                let message = 'Password yang dimasukkan salah'
                 res.redirect(`/login?msg=${message}`)
             }
         } else {
-            let message = 'Tidak ada di database!!'
+            let message = 'Pengguna tidak ada di database'
             res.redirect(`/login?msg=${message}`)
         }
     },

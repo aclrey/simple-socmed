@@ -38,5 +38,41 @@ module.exports =
             `SELECT * FROM user`
         ))
     },
+
+    get_post: function (idk_post) {
+        return eksekusi(mysql.format(
+            `SELECT
+            p.*,
+            u.username, u.nama_lengkap, u.foto
+            FROM post AS p
+            LEFT JOIN user AS u ON u.id = p.created_by  
+            WHERE p.id = ?`,
+            [idk_post]
+        ))
+    },
+
+    get_postcomment: function (idk_post) {
+        return eksekusi(mysql.format(
+        `SELECT 
+        komentar.*,       -- Select all fields from the komentar table
+        post.*,           -- Select all fields from the post table
+        user.username,    -- Select specific fields from the user table
+        user.foto
+        FROM post
+        LEFT JOIN komentar ON komentar.id_post = post.id   -- Join komentar with post based on post ID
+        LEFT JOIN user ON user.id = komentar.created_by    -- Join user with komentar based on user ID
+        WHERE post.id = ?;                             -- Filter by a specific post ID (replace ? with your value)
+        `,
+        [idk_post]
+        ))
+    },
+
+    insert_comment: function (data) {
+
+        return eksekusi(mysql.format(
+            `INSERT INTO komentar SET ?`,
+            [data]
+        ))
+    },
    
 }

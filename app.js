@@ -38,16 +38,21 @@ app.set('views', './view')
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
 app.post('/proses-login', c_auth.proses_login)
+app.get('/logout', c_auth.proses_logout)
+
 // next() command in cek_login function will run the next instruction, which is c_feed.index
 app.get('/feed', cek_login, c_feed.index)
-app.get('/logout', c_auth.proses_logout)
+app.get('/feed/post/:id_post', c_feed.post_detail)
+app.post('/feed/post/:id_post', c_feed.proses_komen)
+
+app.get('/posting', cek_login, c_posting.index)
+app.post('/posting/tambah', cek_login, c_posting.proses_insert)
+
 app.get('/profil', cek_login, c_profil.index)
 app.get('/profil/edit', cek_login, c_profil.form_edit)
 app.post('/profil/proses-update', cek_login, c_profil.proses_update)
 app.get('/profil/edit-foto', cek_login, c_profil.form_edit_foto)
 app.post('/profil/proses-update-foto', cek_login, c_profil.proses_update_foto)
-app.get('/posting', cek_login, c_posting.index)
-app.post('/posting/tambah', cek_login, c_posting.proses_insert)
 app.get('/profil/user/:username', cek_login, c_profil.profil_userlain)
 
 app.listen(port, () => {
