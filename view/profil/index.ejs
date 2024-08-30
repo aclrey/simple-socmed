@@ -2,8 +2,8 @@
 <%- include('../template/menu-atas') %>
 
 <style>
-    .ava-icon {
-        width: 28px; height:28px; object-fit: cover; margin-right:10px; border-radius: 100%;
+    a {
+        text-decoration: none; color:black;
     }
     a:hover {
         color: darkblue;
@@ -132,20 +132,23 @@
                             </button>
                         </div>
 
-                        <div class="card-body">
-                            <p class="card-text"><b><%= postingan[i].username %></b> <%= postingan[i].caption %></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        <i class="fa-regular fa-thumbs-up"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        <i class="fa-regular fa-comment"></i>
-                                    </button>
+                        <a href="/feed/post/<%= postingan[i].id %>">
+                            <div class="card-body">
+                                <p class="card-text"><b><%= postingan[i].username %></b> <%= postingan[i].caption %></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa-regular fa-thumbs-up"></i>
+                                        </button>
+                                        
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                <i class="fa-regular fa-comment"></i>
+                                            </button>
+                                    </div>
+                                    <small class="text-body-secondary"><%= moment(postingan[i].created_at).startOf('minute').fromNow() %></small>
                                 </div>
-                                <small class="text-body-secondary"><%= moment(postingan[i].created_at).startOf('minute').fromNow() %></small>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                 <% } %>
